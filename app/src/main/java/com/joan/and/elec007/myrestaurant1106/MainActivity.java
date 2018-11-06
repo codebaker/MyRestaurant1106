@@ -8,6 +8,8 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
+    public static final int REQUEST_CODE = 1000;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +42,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void startIntent(Class<?> activity){
         Bundle bundle = new Bundle();
         Intent intent = new Intent(this,activity).putExtras(bundle);
-        startActivityForResult(intent,RESULT_FIRST_USER);
+        startActivityForResult(intent,REQUEST_CODE);
     }
 }

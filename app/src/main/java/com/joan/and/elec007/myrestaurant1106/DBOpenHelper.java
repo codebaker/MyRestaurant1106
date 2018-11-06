@@ -50,10 +50,12 @@ public class DBOpenHelper extends SQLiteOpenHelper {
     }
 
     private void autoInsert(SQLiteDatabase db){
-        for (int i = 0; i < 5; i++) {
+        //0번 테이블은 Takeout
+        db.execSQL("INSERT INTO TABLESEAT VALUES( null, 'T0')");
+        for (int i = 1; i < 6; i++) {
             int cost = i*1000;
             db.execSQL("INSERT INTO MENU VALUES( null,'menu " + i + "',"+ cost + ")");
-            db.execSQL("INSERT INTO TABLESEAT VALUES( null, 'menu " + i +"')");
+            db.execSQL("INSERT INTO TABLESEAT VALUES( null, 'T" + i +"')");
         }
     }
 
