@@ -39,7 +39,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void startIntent(Class<?> activity){
         Bundle bundle = new Bundle();
-
         Intent intent = new Intent(this,activity).putExtras(bundle);
         startActivityForResult(intent,RESULT_FIRST_USER);
     }
