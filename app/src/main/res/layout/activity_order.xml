@@ -27,6 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="3"
+            android:text="00"
             android:textSize="24sp" />
 
     </LinearLayout>
@@ -50,5 +51,10 @@
             android:text="@string/cancel" />
 
     </LinearLayout>
+
+    <ListView
+        android:id="@+id/order_listvieww"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
 </LinearLayout>
