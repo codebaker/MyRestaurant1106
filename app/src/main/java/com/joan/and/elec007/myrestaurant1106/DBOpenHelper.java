@@ -5,19 +5,19 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class DBOpenHelper extends SQLiteOpenHelper {
-    private static DBOpenHelper INSTANCE;
-    private static SQLiteDatabase mDB;
+    private static DBOpenHelper instance;
+    private static SQLiteDatabase mdb;
 
     public static final String DB_NAME = "RESTAURANT.DB";
     private static final SQLiteDatabase.CursorFactory FACTORY = null;
     public static final int VERSION = 1;
 
     public static DBOpenHelper getInstance(Context context) {
-        if(INSTANCE == null) {
-            INSTANCE = new DBOpenHelper(context);
-            mDB = INSTANCE.getWritableDatabase();
+        if(instance == null) {
+            instance = new DBOpenHelper(context);
+            mdb = instance.getWritableDatabase();
         }
-        return INSTANCE;
+        return instance;
     }
 
     public DBOpenHelper(Context context) {
@@ -56,7 +56,7 @@ public class DBOpenHelper extends SQLiteOpenHelper {
             db.execSQL("INSERT INTO TABLESEAT VALUES( null, 'menu " + i +"')");
         }
     }
-    
+
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE menu");
