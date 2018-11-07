@@ -11,7 +11,7 @@ public class DBOpenHelper extends SQLiteOpenHelper {
     private static DBOpenHelper instance;
     private static SQLiteDatabase mdb;
 
-    public static final String DB_NAME = "restaurant.db";
+    public static final String DB_NAME = "restaurant.Ddb";
     private static final SQLiteDatabase.CursorFactory FACTORY = null;
     public static final int VERSION = 1;
 
@@ -29,12 +29,12 @@ public class DBOpenHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE MENU " +
+        db.execSQL("CREATE TABLE menu " +
                     "(menu_seq Text PRIMARY KEY, " +
                     "menu_name TEXT, " +
                     "menu_cost Integer)");
 
-        db.execSQL("CREATE TABLE TABLESEAT " +
+        db.execSQL("CREATE TABLE tableseat " +
                     "(tableseat_seq Text PRIMARY KEY, " +
                     "tableseat_name TEXT)");
 

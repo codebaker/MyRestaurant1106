@@ -36,6 +36,32 @@ public class OrderActivity extends AppCompatActivity implements View.OnClickList
         setMenu();
     }
 
+    private void setMenu(){
+        mdb = dbHelper.getWritableDatabase();
+        sql = "SELECT * FROM MENU";
+        cursor = mdb.rawQuery(sql,null);
+        List<Menu> menuList = new ArrayList<>();
+
+        String[] MENUS = new String[5];
+        int i=MENUS.length-1;
+
+        String seq,name;int cost;
+        while(cursor.moveToNext()){
+            seq = cursor.getString(cursor.getColumnIndex("menu_seq"));
+            name = cursor.getString(cursor.getColumnIndex("menu_name"));
+            cost = cursor.getInt(cursor.getColumnIndex("menu_cost"));
+
+            Menu menu = new Menu(seq,name,cost);
+            menuList.add(menu);
+            MENUS[i] = menu.toString();
+            --i;
+        }
+
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this,R.layout.listview_order,MENUS);
+        ListView listView = findViewById(R.id.listViewMenu);
+        listView.setAdapter(arrayAdapter);
+    }
+
     private void setTableseat() {
         mdb = dbHelper.getWritableDatabase();
         sql = "SELECT * FROM TABLESEAT";
@@ -63,34 +89,8 @@ public class OrderActivity extends AppCompatActivity implements View.OnClickList
         Bundle bundle = new Bundle();
         Intent intent = new Intent(this,MainActivity.class).putExtras(bundle);
         startActivityForResult(intent,RESULT_FIRST_USER);
-
-
     }
-    private void setMenu(){
-        mdb = dbHelper.getWritableDatabase();
-        sql = "SELECT * FROM MENU";
-        cursor = mdb.rawQuery(sql,null);
-        List<Menu> menuList = new ArrayList<>();
 
-        String[] MENUS = new String[5];
-        int i=MENUS.length-1;
-
-        String seq,name;int cost;
-        while(cursor.moveToNext()){
-            seq = cursor.getString(cursor.getColumnIndex("menu_seq"));
-            name = cursor.getString(cursor.getColumnIndex("menu_name"));
-            cost = cursor.getInt(cursor.getColumnIndex("menu_cost"));
-
-            Menu menu = new Menu(seq,name,cost);
-            menuList.add(menu);
-            MENUS[i] = menu.toString();
-            --i;
-        }
-
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this,R.layout.listview_order,MENUS);
-        ListView listView = findViewById(R.id.listViewMenu);
-        listView.setAdapter(arrayAdapter);
-    }
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
