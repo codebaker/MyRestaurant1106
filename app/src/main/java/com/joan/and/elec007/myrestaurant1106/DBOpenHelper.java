@@ -34,9 +34,9 @@ public class DBOpenHelper extends SQLiteOpenHelper {
                     "menu_name TEXT, " +
                     "menu_cost Integer)");
 
-        /*db.execSQL("CREATE TABLE TABLESEAT " +
+        db.execSQL("CREATE TABLE TABLESEAT " +
                     "(tableseat_seq Text PRIMARY KEY, " +
-                    "tableseat_name TEXT)");*/
+                    "tableseat_name TEXT)");
 
         /*db.execSQL("CREATE TABLE ORDERED_LIST " +
                     "(ordered_seq Text PRIMARY KEY, " +
@@ -56,12 +56,12 @@ public class DBOpenHelper extends SQLiteOpenHelper {
         SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHHmmssSSS");
         String seq;
         //0번 테이블은 Takeout
-        //db.execSQL("INSERT INTO TABLESEAT VALUES(" + seq + ", 'T0')");
+        db.execSQL("INSERT INTO TABLESEAT VALUES(" + format.format(new Date()) + ", 'T0')");
         for (int i = 1; i < 6; i++) {
             int cost = i*1000;
             seq = format.format(new Date());
             db.execSQL("INSERT INTO MENU VALUES(" + seq + ",'menu " + i + "',"+ cost + ")");
-            //db.execSQL("INSERT INTO TABLESEAT VALUES( " + seq + ", 'T" + i +"')");
+            db.execSQL("INSERT INTO TABLESEAT VALUES( " + seq + ", 'T" + i +"')");
         }
     }
 
