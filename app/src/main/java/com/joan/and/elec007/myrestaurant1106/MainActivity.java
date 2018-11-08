@@ -20,9 +20,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ((Button)findViewById(R.id.btnOrderTotal)).setOnClickListener(this);
-        ((Button)findViewById(R.id.btnManageMenus)).setOnClickListener(this);
-        ((Button)findViewById(R.id.btnManageTables)).setOnClickListener(this);
         ((Button)findViewById(R.id.btnNewOrder)).setOnClickListener(this);
     }
 

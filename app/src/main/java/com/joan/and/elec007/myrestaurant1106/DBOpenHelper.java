@@ -10,16 +10,16 @@ import java.util.Date;
 
 public class DBOpenHelper extends SQLiteOpenHelper {
     private static DBOpenHelper instance;
-    private static SQLiteDatabase mdb;
+    //private static SQLiteDatabase mdb;
 
-    public static final String DB_NAME = "restaurant.Ddb";
+    public static final String DB_NAME = "restaurant.db";
     private static final SQLiteDatabase.CursorFactory FACTORY = null;
     public static final int VERSION = 1;
 
     public static DBOpenHelper getInstance(Context context) {
         if(instance == null) {
             instance = new DBOpenHelper(context);
-            mdb = instance.getWritableDatabase();
+            //mdb = instance.getWritableDatabase();
         }
         return instance;
     }
@@ -30,26 +30,30 @@ public class DBOpenHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String sql = "CREATE TABLE menu " +
-                    "(menu_seq Text PRIMARY KEY, " +
-                    "menu_name TEXT, " +
-                    "menu_cost Integer)";
+        String sql = "CREATE TABLE menu" +
+                        " (menu_seq TEXT PRIMARY KEY" +
+                        ", menu_name TEXT" +
+                        ", menu_cost INTEGER" +
+                        //", menu_available TEXT, " +
+                        //", menu_regdate TEXT, " +
+                        //", menu_moddate" +
+                        ")";
         db.execSQL(sql);
 
-        sql = "CREATE TABLE tableseat " +
-                "(tableseat_seq Text PRIMARY KEY, " +
-                "tableseat_name TEXT)";
+        sql = "CREATE TABLE tableseat" +
+                " (tableseat_seq Text PRIMARY KEY" +
+                ", tableseat_name TEXT" +
+                ")";
         db.execSQL(sql);
 
-        sql = "CREATE TABLE ORDERED_LIST " +
-                "(ordered_seq Text PRIMARY KEY, " +
-                "ordered_count Integer, " +
-                "ordered_date text,closed_flag text, " +
-                "tableseat_seq text NOT NULL," +
-                "tableseat_name text, " +
-                "menu_seq text NOT NULL, " +
-                "menu_name text, " +
-                "menu_cose Integer)";
+        sql = "CREATE TABLE order_list" +
+                " (ordered_seq TEXT PRIMARY KEY" +
+                ", ordered_count INTEGER" +
+                ", ordered_date TEXT" +
+                ", tableseat_seq TEXT NOT NULL" +
+                ", menu_seq TEXT NOT NULL" +
+                ", paid_flag TEXT" +
+                ")";
         db.execSQL(sql);
 
         //초기에 메뉴와 테이블 테이터 5개씩 자동 삽입
