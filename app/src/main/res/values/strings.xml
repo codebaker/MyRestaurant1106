@@ -4,4 +4,7 @@
     <string name="cancel">취소</string>
     <string name="order_number">주문번호 : </string>
     <string name="total">합계 :</string>
+    <string name="menu_setting">메뉴 관리</string>
+    <string name="tableseat_setting">테이블 관리</string>
+    <string name="sales_status">매출 현황</string>
 </resources>
