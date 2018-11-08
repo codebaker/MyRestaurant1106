@@ -3,6 +3,7 @@ package com.joan.and.elec007.myrestaurant1106;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.support.annotation.NonNull;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -29,30 +30,33 @@ public class DBOpenHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE menu " +
+        String sql = "CREATE TABLE menu " +
                     "(menu_seq Text PRIMARY KEY, " +
                     "menu_name TEXT, " +
-                    "menu_cost Integer)");
+                    "menu_cost Integer)";
+        db.execSQL(sql);
 
-        db.execSQL("CREATE TABLE tableseat " +
-                    "(tableseat_seq Text PRIMARY KEY, " +
-                    "tableseat_name TEXT)");
+        sql = "CREATE TABLE tableseat " +
+                "(tableseat_seq Text PRIMARY KEY, " +
+                "tableseat_name TEXT)";
+        db.execSQL(sql);
 
-        /*db.execSQL("CREATE TABLE ORDERED_LIST " +
-                    "(ordered_seq Text PRIMARY KEY, " +
-                    "ordered_count Integer, " +
-                    "ordered_date text,closed_flag text, " +
-                    "tableseat_seq text NOT NULL," +
-                    "tableseat_name text, " +
-                    "menu_seq text NOT NULL, " +
-                    "menu_name text, " +
-                    "menu_cose Integer)");*/
+        sql = "CREATE TABLE ORDERED_LIST " +
+                "(ordered_seq Text PRIMARY KEY, " +
+                "ordered_count Integer, " +
+                "ordered_date text,closed_flag text, " +
+                "tableseat_seq text NOT NULL," +
+                "tableseat_name text, " +
+                "menu_seq text NOT NULL, " +
+                "menu_name text, " +
+                "menu_cose Integer)";
+        db.execSQL(sql);
 
         //초기에 메뉴와 테이블 테이터 5개씩 자동 삽입
         autoInsert(db);
     }
 
-    private void autoInsert(SQLiteDatabase db){
+    private void autoInsert(@NonNull SQLiteDatabase db){
         SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHHmmssSSS");
         String seq;
         //0번 테이블은 Takeout

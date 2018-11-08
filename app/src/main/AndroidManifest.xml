@@ -16,10 +16,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".OrderTotalActivity" />
-        <activity android:name=".EditMenuActivity" />
-        <activity android:name=".EditTableActivity" />
-        <activity android:name=".OrderActivity" />
+        <activity android:name=".OrderTotalActivity"
+            android:parentActivityName=".MainActivity"/>
+        <activity android:name=".EditMenuActivity"
+            android:parentActivityName=".MainActivity"/>
+        <activity android:name=".EditTableActivity"
+            android:parentActivityName=".MainActivity"/>
+        <activity android:name=".OrderActivity"
+            android:parentActivityName=".MainActivity"/>
     </application>
 
 </manifest>
