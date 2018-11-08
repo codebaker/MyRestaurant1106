@@ -19,7 +19,7 @@
         <activity android:name=".OrderTotalActivity" />
         <activity android:name=".EditMenuActivity" />
         <activity android:name=".EditTableActivity" />
-        <activity android:name=".OrderActivity"></activity>
+        <activity android:name=".OrderActivity" />
     </application>
 
 </manifest>
