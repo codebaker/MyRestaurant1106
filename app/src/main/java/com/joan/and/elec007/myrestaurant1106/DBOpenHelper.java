@@ -1,9 +1,11 @@
 package com.joan.and.elec007.myrestaurant1106;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
@@ -11,11 +13,14 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class DBOpenHelper extends SQLiteOpenHelper {
     private static DBOpenHelper instance;
-    //private static SQLiteDatabase mdb;
+    private static SQLiteDatabase mdb;
+    String sql;
+    Cursor cursor;
 
     public static final String DB_NAME = "restaurant.db";
     private static final SQLiteDatabase.CursorFactory FACTORY = null;
@@ -24,11 +29,13 @@ public class DBOpenHelper extends SQLiteOpenHelper {
     public static DBOpenHelper getInstance(Context context) {
         if(instance == null) {
             instance = new DBOpenHelper(context);
-            //mdb = instance.getWritableDatabase();
         }
+        mdb = instance.getWritableDatabase();
         return instance;
     }
 
+    //db를 한개만 열어서 쓰기 위해 생성자를 private로.
+    //객체는 getInstance()로만 얻을 수 있음.
     private DBOpenHelper(Context context) {
         super(context, DB_NAME, FACTORY, VERSION);
     }
@@ -65,6 +72,7 @@ public class DBOpenHelper extends SQLiteOpenHelper {
         autoInsert(db);
     }
 
+    //테스트 하기위한 fake data
     private void autoInsert(@NonNull SQLiteDatabase db){
         SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHHmmssSSS");
         String seq;
@@ -86,18 +94,23 @@ public class DBOpenHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public static class OderRecyclerAdapter {
-        public static class OderItemViewHolder extends RecyclerView.ViewHolder{
-            TextView textItemMenu;
-            EditText textItemCount;
-            Button btnItemPlus,btnItemMinus;
+    public ArrayList<Menu> selectMenuTable(){
+        sql = "SELECT * FROM MENU";
+        cursor = mdb.rawQuery(sql,null);
 
-            public OderItemViewHolder(@NonNull View itemView) {
-                super(itemView);
-                textItemMenu = (TextView)itemView.findViewById(R.id.textItemMenu);
-            }
+        ArrayList<Menu> arrayList = new ArrayList<>();
+        Menu menu;
+        String seq,name;int cost;
+
+        while(cursor.moveToNext()){
+            seq = cursor.getString(cursor.getColumnIndex("menu_seq"));
+            name = cursor.getString(cursor.getColumnIndex("menu_name"));
+            cost = cursor.getInt(cursor.getColumnIndex("menu_cost"));
+
+            menu = new Menu(seq,name,cost);
+            arrayList.add(menu);
         }
 
-
+        return arrayList;
     }
 }

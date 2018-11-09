@@ -44,8 +44,6 @@ public class OrderActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void setMenuRecyclerView() {
-
-
         recyclerView = (RecyclerView) findViewById(R.id.rvMenuList);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);

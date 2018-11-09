@@ -26,24 +26,7 @@ public class MenuRecyclerAdapter extends RecyclerView.Adapter<MenuRecyclerAdapte
 
     public MenuRecyclerAdapter(DBOpenHelper db){
         this.db=db;
-        this.arrayList = new ArrayList<>();
-
-        mdb = db.getWritableDatabase();
-        sql = "SELECT * FROM MENU";
-        cursor = mdb.rawQuery(sql,null);
-
-        arrayList = new ArrayList<>();
-        Menu menu;
-        String seq,name;int cost;
-
-        while(cursor.moveToNext()){
-            seq = cursor.getString(cursor.getColumnIndex("menu_seq"));
-            name = cursor.getString(cursor.getColumnIndex("menu_name"));
-            cost = cursor.getInt(cursor.getColumnIndex("menu_cost"));
-
-            menu = new Menu(seq,name,cost);
-            arrayList.add(menu);
-        }
+        this.arrayList = db.selectMenuTable();
     }
 
     @NonNull
@@ -62,19 +45,19 @@ public class MenuRecyclerAdapter extends RecyclerView.Adapter<MenuRecyclerAdapte
         holder.textMenuCost.setText(String.valueOf(menu.getMenuCost()));
         holder.textItemMenu.setText(menu.getMenuName());
         holder.textItemCount.setText("0");
-        final String name = menu.getMenuName();
+        final String seq = menu.getMenuSeq();
         holder.btnItemMinus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //minus button 클릭
                 //order seq 텍스트 에디터 확인하고 order seq가 없으면 새로 insert 한다.
-                Toast.makeText(v.getContext(),name+"minus",LENGTH_SHORT).show();
+                Toast.makeText(v.getContext(),seq+"minus",LENGTH_SHORT).show();
             }
         });
         holder.btnItemPlus.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Toast.makeText(v.getContext(),name+"plus",LENGTH_SHORT).show();
+                Toast.makeText(v.getContext(),seq+"plus",LENGTH_SHORT).show();
             }
         });
     }
