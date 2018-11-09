@@ -34,9 +34,15 @@ public class OrderActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order);
 
+        dbHelper = DBOpenHelper.getInstance(this);
+        Bundle bundle = getIntent().getExtras();
+        if(!bundle.isEmpty() && "new".equals(bundle.getString("orderStatus"))){
+          // 새 오더임을 인텐트로 전해받음.
+        }
+
         ((Button)findViewById(R.id.btnCheck)).setOnClickListener(this);
 
-        dbHelper = DBOpenHelper.getInstance(this);
+
 
         setTableseat();
         setMenuRecyclerView();

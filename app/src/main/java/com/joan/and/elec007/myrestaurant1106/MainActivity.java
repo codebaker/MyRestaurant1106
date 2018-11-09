@@ -1,6 +1,7 @@
 package com.joan.and.elec007.myrestaurant1106;
 
 import android.content.Intent;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -14,6 +15,7 @@ import android.widget.ListView;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
     public static final int REQUEST_CODE = 1000;
+    private Bundle bundle = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,15 +34,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        bundle = new Bundle();
         switch (item.getItemId()){
             case R.id.miMenuManage:
-                startIntent(EditMenuActivity.class);
+                startIntent(EditMenuActivity.class,bundle);
                 break;
             case R.id.miTableseatManage:
-                startIntent(EditTableActivity.class);
+                startIntent(EditTableActivity.class,bundle);
                 break;
             case R.id.miCalculatedList:
-                startIntent(OrderTotalActivity.class);
+                startIntent(OrderTotalActivity.class,bundle);
                 break;
             default:
                 return true;
@@ -52,14 +55,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.btnNewOrder:
-                startIntent(OrderActivity.class);
+                bundle = new Bundle();
+                bundle.putString("orderStatus","new");
+                startIntent(OrderActivity.class,bundle);
                 break;
         }
     }
 
-    private void startIntent(Class<?> activity){
-        Bundle bundle = new Bundle();
-        Intent intent = new Intent(this,activity).putExtras(bundle);
+    private void startIntent(Class<?> activity,@Nullable Bundle bundle){
+        Intent intent = new Intent(this,activity);
+        if(bundle!=null)intent.putExtras(bundle);
         startActivityForResult(intent,REQUEST_CODE);
     }
 }
