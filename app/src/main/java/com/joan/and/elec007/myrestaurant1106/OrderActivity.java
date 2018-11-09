@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -23,6 +24,10 @@ public class OrderActivity extends AppCompatActivity implements View.OnClickList
     String sql;
     Spinner spinner;
 
+    RecyclerView recyclerView;
+    RecyclerView.LayoutManager layoutManager;
+    MenuRecyclerAdapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,7 +38,18 @@ public class OrderActivity extends AppCompatActivity implements View.OnClickList
         dbHelper = DBOpenHelper.getInstance(this);
 
         setTableseat();
-        setMenu();
+        setMenuRecyclerView();
+        //setMenu();
+    }
+
+    private void setMenuRecyclerView() {
+        ArrayList<Menu> menuList = new ArrayList<>();
+        Menu menu = null;
+        menu = new Menu("3423","카페라떼",5000);
+        menu = new Menu("3424","아이스커피",3000);
+        menu = new Menu("3425","녹차라떼",4000);
+
+        
     }
 
     private void setMenu(){

@@ -8,8 +8,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+
+import static android.widget.Toast.LENGTH_SHORT;
 
 public class MenuRecyclerAdapter extends RecyclerView.Adapter<MenuRecyclerAdapter.MenuViewHolder> implements View.OnClickListener{
 
@@ -47,6 +50,14 @@ public class MenuRecyclerAdapter extends RecyclerView.Adapter<MenuRecyclerAdapte
 
     @Override
     public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.btnItemMinus :
+                Toast.makeText(v.getContext(),"minus",LENGTH_SHORT).show();
+                break;
+            case R.id.btnItemPlus :
+                Toast.makeText(v.getContext(),"plus",LENGTH_SHORT).show();
+                break;
+        }
 
     }
 
