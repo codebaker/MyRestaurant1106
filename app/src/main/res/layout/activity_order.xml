@@ -37,9 +37,10 @@
         android:layout_height="wrap_content" />
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/evMenuList"
+        android:id="@+id/rvMenuList"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        tools:listitem="@layout/item_menu" />
 
     <ListView
         android:id="@+id/listViewMenu"

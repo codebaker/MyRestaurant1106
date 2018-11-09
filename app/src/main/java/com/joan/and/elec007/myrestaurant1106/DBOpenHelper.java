@@ -4,6 +4,11 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -79,5 +84,20 @@ public class DBOpenHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE orders");
         db.execSQL("DROP TABLE tableseat");
         onCreate(db);
+    }
+
+    public static class OderRecyclerAdapter {
+        public static class OderItemViewHolder extends RecyclerView.ViewHolder{
+            TextView textItemMenu;
+            EditText textItemCount;
+            Button btnItemPlus,btnItemMinus;
+
+            public OderItemViewHolder(@NonNull View itemView) {
+                super(itemView);
+                textItemMenu = (TextView)itemView.findViewById(R.id.textItemMenu);
+            }
+        }
+
+
     }
 }
