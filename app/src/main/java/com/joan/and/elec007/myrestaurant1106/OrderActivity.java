@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.AdapterView;
@@ -46,10 +47,17 @@ public class OrderActivity extends AppCompatActivity implements View.OnClickList
         ArrayList<Menu> menuList = new ArrayList<>();
         Menu menu = null;
         menu = new Menu("3423","카페라떼",5000);
+        menuList.add(menu);
         menu = new Menu("3424","아이스커피",3000);
+        menuList.add(menu);
         menu = new Menu("3425","녹차라떼",4000);
+        menuList.add(menu);
 
-        
+        recyclerView = (RecyclerView) findViewById(R.id.rvMenuList);
+        layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+        adapter = new MenuRecyclerAdapter(menuList);
+        recyclerView.setAdapter(adapter);
     }
 
     private void setMenu(){
