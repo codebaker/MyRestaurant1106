@@ -47,33 +47,6 @@ public class MenuRecyclerAdapter extends RecyclerView.Adapter<MenuRecyclerAdapte
         holder.textMenuSeq.setText(menu.getMenuSeq());
         holder.textMenuCost.setText(String.valueOf(menu.getMenuCost()));
         holder.textItemMenu.setText(menu.getMenuName());
-
-        /*holder.btnItemMinus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //minus button 클릭
-                if (!"".equals(holder.textItemCount.getText().toString())){
-                    int count = Integer.parseInt(holder.textItemCount.getText().toString());
-                    if (count > -1){
-                        String cnt = String.valueOf(count - 1);
-                        holder.textItemCount.setText(cnt);
-                    }
-                }
-            }
-        });
-        holder.btnItemPlus.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                //minus button 클릭
-                int count=0;
-                if (!"".equals(holder.textItemCount.getText().toString())){
-                    count = Integer.parseInt(holder.textItemCount.getText().toString());
-                }
-                String cnt = String.valueOf(count + 1);
-                holder.textItemCount.setText(cnt);
-            }
-        });*/
-
     }
 
     @Override
@@ -81,7 +54,7 @@ public class MenuRecyclerAdapter extends RecyclerView.Adapter<MenuRecyclerAdapte
         return arrayList.size();
     }
 
-    public static class MenuViewHolder extends RecyclerView.ViewHolder{
+    public static class MenuViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView textItemMenu, textMenuSeq, textMenuCost;
         EditText textItemCount;
         ImageButton btnItemPlus,btnItemMinus;
@@ -94,10 +67,14 @@ public class MenuRecyclerAdapter extends RecyclerView.Adapter<MenuRecyclerAdapte
             textItemCount = itemView.findViewById(R.id.textItemCount);
             btnItemPlus = itemView.findViewById(R.id.btnItemPlus);
             btnItemMinus = itemView.findViewById(R.id.btnItemMinus);
+            btnItemMinus.setOnClickListener(this);
+            btnItemPlus.setOnClickListener(this);
+        }
 
-            btnItemMinus.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+        @Override
+        public void onClick(View view) {
+            switch (view.getId()){
+                case R.id.btnItemMinus:
                     //minus button 클릭
                     if (!"".equals(textItemCount.getText().toString())){
                         int count = Integer.parseInt(textItemCount.getText().toString());
@@ -106,13 +83,9 @@ public class MenuRecyclerAdapter extends RecyclerView.Adapter<MenuRecyclerAdapte
                             textItemCount.setText(cnt);
                         }
                     }
-                }
-            });
-
-            btnItemPlus.setOnClickListener(new View.OnClickListener(){
-                @Override
-                public void onClick(View v) {
-                    //minus button 클릭
+                    break;
+                case R.id.btnItemPlus:
+                    //Plus button 클릭
                     int count=0;
                     if (!"".equals(textItemCount.getText().toString())){
                         //count를 db에서 가져올것
@@ -121,9 +94,8 @@ public class MenuRecyclerAdapter extends RecyclerView.Adapter<MenuRecyclerAdapte
                     String cnt = String.valueOf(count + 1);
                     //db에 바로 저장할것.
                     textItemCount.setText(cnt);
-                }
-            });
-
+                    break;
+            }
         }
     }
 }
