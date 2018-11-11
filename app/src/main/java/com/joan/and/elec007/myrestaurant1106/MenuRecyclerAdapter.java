@@ -1,31 +1,30 @@
 package com.joan.and.elec007.myrestaurant1106;
 
-import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.support.annotation.IntegerRes;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import static android.widget.Toast.LENGTH_SHORT;
 
-public class MenuRecyclerAdapter extends RecyclerView.Adapter<MenuRecyclerAdapter.MenuViewHolder> {
+
+public class MenuRecyclerAdapter extends RecyclerView.Adapter<MenuRecyclerAdapter.MenuViewHolder>{
     private DBOpenHelper db;
     private SQLiteDatabase mdb;
     private Cursor cursor;
     private String sql;
 
     ArrayList<Menu> arrayList = null;
+//    MenuViewHolder holder = null;
+//    Menu menu= null;
+
 
     public MenuRecyclerAdapter(DBOpenHelper db){
         this.db=db;
@@ -42,25 +41,39 @@ public class MenuRecyclerAdapter extends RecyclerView.Adapter<MenuRecyclerAdapte
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MenuViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MenuViewHolder holder,int position) {
+//        this.holder = h;
         Menu menu = arrayList.get(position);
         holder.textMenuSeq.setText(menu.getMenuSeq());
         holder.textMenuCost.setText(String.valueOf(menu.getMenuCost()));
         holder.textItemMenu.setText(menu.getMenuName());
 
-
-        holder.btnItemMinus.setOnClickListener(new View.OnClickListener() {
+        /*holder.btnItemMinus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //minus button 클릭
-                //order seq 텍스트 에디터 확인하고 order seq가 없으면 새로 insert 한다.
+                if (!"".equals(holder.textItemCount.getText().toString())){
+                    int count = Integer.parseInt(holder.textItemCount.getText().toString());
+                    if (count > -1){
+                        String cnt = String.valueOf(count - 1);
+                        holder.textItemCount.setText(cnt);
+                    }
+                }
             }
         });
         holder.btnItemPlus.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                //minus button 클릭
+                int count=0;
+                if (!"".equals(holder.textItemCount.getText().toString())){
+                    count = Integer.parseInt(holder.textItemCount.getText().toString());
+                }
+                String cnt = String.valueOf(count + 1);
+                holder.textItemCount.setText(cnt);
             }
-        });
+        });*/
+
     }
 
     @Override
@@ -81,6 +94,35 @@ public class MenuRecyclerAdapter extends RecyclerView.Adapter<MenuRecyclerAdapte
             textItemCount = itemView.findViewById(R.id.textItemCount);
             btnItemPlus = itemView.findViewById(R.id.btnItemPlus);
             btnItemMinus = itemView.findViewById(R.id.btnItemMinus);
+
+            btnItemMinus.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //minus button 클릭
+                    if (!"".equals(textItemCount.getText().toString())){
+                        int count = Integer.parseInt(textItemCount.getText().toString());
+                        if (count > 0){
+                            String cnt = String.valueOf(count - 1);
+                            textItemCount.setText(cnt);
+                        }
+                    }
+                }
+            });
+
+            btnItemPlus.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v) {
+                    //minus button 클릭
+                    int count=0;
+                    if (!"".equals(textItemCount.getText().toString())){
+                        //count를 db에서 가져올것
+                        count = Integer.parseInt(textItemCount.getText().toString());
+                    }
+                    String cnt = String.valueOf(count + 1);
+                    //db에 바로 저장할것.
+                    textItemCount.setText(cnt);
+                }
+            });
 
         }
     }

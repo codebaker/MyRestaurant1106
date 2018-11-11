@@ -5,10 +5,12 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.support.annotation.NonNull;
+import android.widget.ArrayAdapter;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class DBOpenHelper extends SQLiteOpenHelper {
     private static DBOpenHelper instance;
@@ -103,6 +105,23 @@ public class DBOpenHelper extends SQLiteOpenHelper {
 
             menu = new Menu(seq,name,cost);
             arrayList.add(menu);
+        }
+
+        return arrayList;
+    }
+
+    public ArrayList<String> selectTableseatTable(){
+        sql = "SELECT * FROM TABLESEAT";
+        cursor = mdb.rawQuery(sql,null);
+
+        ArrayList<String> arrayList = new ArrayList<>();
+
+        String seq,name;
+        while(cursor.moveToNext()){
+            seq = cursor.getString(cursor.getColumnIndex("tableseat_seq"));
+            name = cursor.getString(cursor.getColumnIndex("tableseat_name"));
+            Tableseat tableseat = new Tableseat(seq,name);
+            arrayList.add(tableseat.toString());
         }
 
         return arrayList;

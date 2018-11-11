@@ -17,12 +17,9 @@ import android.widget.Spinner;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrderActivity extends AppCompatActivity implements View.OnClickListener{
+public class OrderActivity extends AppCompatActivity implements View.OnClickListener {
 
     private DBOpenHelper dbHelper;
-    private SQLiteDatabase mdb;
-    Cursor cursor;
-    String sql;
     Spinner spinner;
 
     RecyclerView recyclerView;
@@ -36,15 +33,15 @@ public class OrderActivity extends AppCompatActivity implements View.OnClickList
 
         dbHelper = DBOpenHelper.getInstance(this);
         Bundle bundle = getIntent().getExtras();
-        if(!bundle.isEmpty() && "new".equals(bundle.getString("orderStatus"))){
+        /*if(!bundle.isEmpty() && "new".equals(bundle.getString("orderStatus"))){
           // 새 오더임을 인텐트로 전해받음.
-        }
+        }*/
 
         ((Button)findViewById(R.id.btnCheck)).setOnClickListener(this);
 
 
 
-        setTableseat();
+        setTableseatSpinner();
         setMenuRecyclerView();
         //setMenu();
     }
@@ -57,23 +54,10 @@ public class OrderActivity extends AppCompatActivity implements View.OnClickList
         recyclerView.setAdapter(adapter);
     }
 
-    private void setTableseat() {
-        mdb = dbHelper.getWritableDatabase();
-        sql = "SELECT * FROM TABLESEAT";
-        cursor = mdb.rawQuery(sql,null);
-
+    private void setTableseatSpinner() {
         spinner = findViewById(R.id.spinnerTableseat);
-        List<String> tableList = new ArrayList<>();
-
-        String seq,name;
-        while(cursor.moveToNext()){
-            seq = cursor.getString(cursor.getColumnIndex("tableseat_seq"));
-            name = cursor.getString(cursor.getColumnIndex("tableseat_name"));
-            Tableseat tableseat = new Tableseat(seq,name);
-            tableList.add(tableseat.toString());
-        }
-
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,tableList);
+        ArrayList<String> arrayList = dbHelper.selectTableseatTable();
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,arrayList);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
         spinner.setAdapter(dataAdapter);
         //spinner.setOnItemSelectedListener(this);
