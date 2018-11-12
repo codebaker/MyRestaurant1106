@@ -22,8 +22,6 @@ public class MenuRecyclerAdapter extends RecyclerView.Adapter<MenuRecyclerAdapte
     private String sql;
 
     ArrayList<Menu> arrayList = null;
-//    MenuViewHolder holder = null;
-//    Menu menu= null;
 
 
     public MenuRecyclerAdapter(DBOpenHelper db){
@@ -47,6 +45,13 @@ public class MenuRecyclerAdapter extends RecyclerView.Adapter<MenuRecyclerAdapte
         holder.textMenuSeq.setText(menu.getMenuSeq());
         holder.textMenuCost.setText(String.valueOf(menu.getMenuCost()));
         holder.textItemMenu.setText(menu.getMenuName());
+
+        holder.btnItemMinus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String count = ((TextView)holder.textItemCount).getText().toString();
+            }
+        });
     }
 
     @Override
@@ -67,8 +72,8 @@ public class MenuRecyclerAdapter extends RecyclerView.Adapter<MenuRecyclerAdapte
             textItemCount = itemView.findViewById(R.id.textItemCount);
             btnItemPlus = itemView.findViewById(R.id.btnItemPlus);
             btnItemMinus = itemView.findViewById(R.id.btnItemMinus);
-            btnItemMinus.setOnClickListener(this);
-            btnItemPlus.setOnClickListener(this);
+            //btnItemMinus.setOnClickListener(this);
+            //btnItemPlus.setOnClickListener(this);
         }
 
         @Override
